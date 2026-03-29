@@ -23,7 +23,7 @@ jobs:
 
       - id: "Auth"
         name: "Authenticate to Cloud Provider"
-        uses: google-github-actions/auth@v0
+        uses: google-github-actions/auth@v4
         with:
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.SERVICE_ACCOUNT }}
