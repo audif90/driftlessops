@@ -37,6 +37,10 @@ jobs:
         name: "Terraform Init"
         run: terraform init
 
+      - id: 'InjectTfvars'
+        name: "Inject TF Vars"
+        run: echo "${{ secrets.GLOBAL_TFVARS }}" > global.tfvars
+
       - id: 'TerraformLint'
         name: "Terraform Lint"
         run: terraform fmt
