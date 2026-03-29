@@ -28,10 +28,6 @@ jobs:
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.SERVICE_ACCOUNT }}
 
-      - id: "CheckAuth"
-        name: "Check Authentication"
-        run: gcloud auth list
-
       - id: 'SetupTerraform'
         name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v2
