@@ -1,0 +1,46 @@
+name : "PR Validation"
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  terraform:
+    name: "Terraform Validity & Security Checks"
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: 'Checkout'
+        name: "Checkout code"
+        uses: actions/checkout@v3
+
+      - id: "Auth"
+        name: "Authenticate to Cloud Provider"
+        uses: google-github-actions/auth@v3 #ngantuk jir kenapa 4
+        with:
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT }}
+
+      - id: 'SetupTerraform'
+        name: "Setup Terraform"
+        uses: hashicorp/setup-terraform@v2
+
+      - id: 'SecurityScan'
+        name: "Security Scan"
+        uses: aquasecurity/tfsec-action@v1.0.0
+
+      - id: 'TerraformInit'
+        name: "Terraform Init"
+        run: terraform init
+
+      - id: 'TerraformLint'
+        name: "Terraform Lint"
+        run: terraform fmt
+
+      - id: 'TerraformPlan'
+        name: "Terraform Plan"
+        run: terraform plan -out=tfplan

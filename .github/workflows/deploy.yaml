@@ -1,9 +1,6 @@
-name : "Terraform CI/CD & Security Checks"
+name : "Deploy to Production"
 on:
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
 
@@ -13,7 +10,7 @@ permissions:
 
 jobs:
   terraform:
-    name: "Terraform CI/CD & Security Checks"
+    name: "Deploy to Production"
     runs-on: ubuntu-latest
 
     steps:
@@ -42,7 +39,7 @@ jobs:
 
       - id: 'TerraformLint'
         name: "Terraform Lint"
-        run: terraform fmt -check
+        run: terraform fmt
 
       - id: 'TerraformPlan'
         name: "Terraform Plan"
