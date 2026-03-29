@@ -38,7 +38,7 @@ jobs:
 
       - id: 'SecurityScan'
         name: "Security Scan"
-        uses: aquasec/tfsec-action@v1.0.0
+        uses: aquasecurity/tfsec-action@v1.0.0
 
       - id: 'TerraformInit'
         name: "Terraform Init"
