@@ -28,13 +28,17 @@ jobs:
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.SERVICE_ACCOUNT }}
 
+      - id: "CheckAuth"
+        name: "Check Authentication"
+        run: gcloud auth list
+
       - id: 'SetupTerraform'
         name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v2
 
       - id: 'SecurityScan'
         name: "Security Scan"
-        uses: aquasec/tfsec-action@v1
+        uses: aquasec/tfsec-action@v1.0.0
 
       - id: 'TerraformInit'
         name: "Terraform Init"
