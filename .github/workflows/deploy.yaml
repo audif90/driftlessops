@@ -47,9 +47,9 @@ jobs:
 
       - id: 'TerraformPlan'
         name: "Terraform Plan"
-        run: terraform plan -out=tfplan
+        run: terraform plan -out=tfplan -var-file=global.tfvars
 
       - id: 'TerraformApply'
         name: "Terraform Apply"
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve tfplan -var-file=global.tfvars

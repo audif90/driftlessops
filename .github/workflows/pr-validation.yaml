@@ -47,4 +47,4 @@ jobs:
 
       - id: 'TerraformPlan'
         name: "Terraform Plan"
-        run: terraform plan -out=tfplan
+        run: terraform plan -out=tfplan -var-file=global.tfvars
