@@ -39,15 +39,12 @@ jobs:
 
       - id: 'InjectTfvars'
         name: "Inject TF Vars"
-        run: |
-          cat << 'EOF' > global.tfvars
-          ${{ secrets.GLOBAL_TFVARS }}
-          EOF
+        run: echo "${{ secrets.GLOBAL_TFVARS }}" | base64 -d > global.tfvars
 
       - id: 'TerraformLint'
         name: "Terraform Lint"
-        run: terraform fmt
+        run: terraform fmt 
 
       - id: 'TerraformPlan'
         name: "Terraform Plan"
-        run: terraform plan -out=tfplan
+        run: terraform plan -out=tfplan -var-file=global.tfvars
