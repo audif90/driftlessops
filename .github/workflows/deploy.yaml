@@ -41,7 +41,10 @@ jobs:
 
       - id: 'InjectTfvars'
         name: "Inject TF Vars"
-        run: echo "${{ secrets.GLOBAL_TFVARS }}" > global.tfvars
+        run: |
+          cat << 'EOF' > global.tfvars
+          ${{ secrets.GLOBAL_TFVARS }}
+          EOF
 
       - id: 'TerraformLint'
         name: "Terraform Lint"
